@@ -5,7 +5,7 @@ require_once('../tryconnection.php');
 mysql_select_db($database_tryconnection, $tryconnection);
 $query_SESME = "SELECT PASSWORD, SESME, PASSWORD2, SESME2 FROM SESME LIMIT 1";
 $SESME = mysql_query($query_SESME, $tryconnection) or die(mysql_error());
-$row_SESME = mysql_fetch_assoc($SESME);
+$row_SESME = mysqli_fetch_assoc($SESME);
 
 //SESME = LEVEL 1
 //SESME2 = LEVEL 2

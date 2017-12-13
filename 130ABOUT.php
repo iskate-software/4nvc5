@@ -7,7 +7,7 @@ mysql_select_db($database_tryconnection, $tryconnection);
 
 $a0 = "SELECT HOSPNAME FROM CRITDATA LIMIT 1 " ;
 $go_a0 = mysql_query($a0, $tryconnection) or die(mysql_error()) ;
-$row_go_a0 = mysql_fetch_assoc($go_a0) ;
+$row_go_a0 = mysqli_fetch_assoc($go_a0) ;
 $hospname = $row_go_a0['HOSPNAME'] ;
 
 $a00 = "SELECT ANIMAL, COUNT(PETID) AS PEA, PETTYPE FROM PETMAST  LEFT JOIN ANIMTYPE ON PETMAST.PETTYPE = ANIMTYPE.ANIMALID  WHERE PETTYPE <> 0 AND PDEAD + PMOVED = 0 AND PLASTDATE >= DATE_SUB(NOW(), INTERVAL 5 YEAR) GROUP BY PETTYPE WITH ROLLUP" ;
@@ -35,7 +35,7 @@ $go_a45 = mysql_query($a45, $tryconnection) or die(mysql_error()) ;
 
 $a5 = "SELECT DISTINCT(PETTYPE) FROM TEMPET ORDER BY PETTYPE DESC LIMIT 1" ;
 $go_a5 = mysql_query($a5, $tryconnection) or die(mysql_error()) ;
-$row_go_a5 = mysql_fetch_assoc($go_a5) ;
+$row_go_a5 = mysqli_fetch_assoc($go_a5) ;
 $max_pet = $row_go_a5['PETTYPE'] ;
 echo ' Started ' ;
 
@@ -103,7 +103,7 @@ for ($xa = 0; $xa <= $max_pet +3; $xa++ ) {
  // First, pick up all moving, 5 year old patients 
  
  $xn = 0 ;
-while ($row_go_a00 = mysql_fetch_assoc($go_a00) ) {
+while ($row_go_a00 = mysqli_fetch_assoc($go_a00) ) {
 
  $around[$xn] = $row_go_a00['PEA'] ;
  $animal[$xn] =  $row_go_a00['ANIMAL']  ;
@@ -120,7 +120,7 @@ while ($row_go_a00 = mysql_fetch_assoc($go_a00) ) {
 }
  
 $xn = 0 ;
-while ($row_go_a4 = mysql_fetch_assoc($go_a4) ) {
+while ($row_go_a4 = mysqli_fetch_assoc($go_a4) ) {
 
 /*   if ($row_go_a4['PETTYPE'] === null ){
     $species[$xn] = 99 ;
@@ -149,7 +149,7 @@ while ($row_go_a4 = mysql_fetch_assoc($go_a4) ) {
 $xtot = $xn ;
 
 $xl = 0 ;
-while ($row_go_a45 = mysql_fetch_assoc($go_a45)) {
+while ($row_go_a45 = mysqli_fetch_assoc($go_a45)) {
  $xc = $row_go_a45['PETTYPE'] -1 ;
  $notdead[$xl] = $row_go_a45['PEI'] ;
  $xl++ ;
@@ -160,13 +160,13 @@ while ($row_go_a45 = mysql_fetch_assoc($go_a45)) {
 
 $a6 = "SELECT COUNT(DISTINCT(CUSTNO)) FROM TEMPET" ;
 $go_a6 = mysql_query($a6, $tryconnection) or die(mysql_error()) ;
-$row_go_a6 = mysql_fetch_assoc($go_a6) ;
+$row_go_a6 = mysqli_fetch_assoc($go_a6) ;
 
 $a7 = "SELECT COUNT(APPTNUM) AS APS, RFPETTYPE FROM APPTS WHERE CONCAT(DATEOF,':',TIMEOF) > NOW() AND CONCAT(DATEOF,':',TIMEOF) <= DATE_ADD(NOW(), INTERVAL 28 DAY) AND CANCELLED <> 1  AND PETNAME <> 'BLOCK OFF' AND PETNAME <> 'APPOINTMENTS'  GROUP BY RFPETTYPE WITH ROLLUP";
 $go_a7 = mysql_query($a7, $tryconnection) or die(mysql_error()) ;
 
 $xm = 0 ;
-while ($row_go_a7 = mysql_fetch_assoc($go_a7)) {
+while ($row_go_a7 = mysqli_fetch_assoc($go_a7)) {
 
  if ($row_go_a7['RFPETTYPE'] === null) {
   $appts[$xn-1] = $row_go_a7['APS'] ;
@@ -181,7 +181,7 @@ while ($row_go_a7 = mysql_fetch_assoc($go_a7)) {
 $a8 = "SELECT COUNT(APPTNUM) AS APS, RFPETTYPE FROM APPTS WHERE CONCAT(DATEOF,':',TIMEOF) > NOW() AND CONCAT(DATEOF,':',TIMEOF) > DATE_ADD(NOW(), INTERVAL 28 DAY) AND CANCELLED <> 1  AND PETNAME <> 'BLOCK OFF'  AND PETNAME <> 'APPOINTMENTS' GROUP BY RFPETTYPE WITH ROLLUP";
 $go_a8 = mysql_query($a8, $tryconnection) or die(mysql_error()) ;
 
-while ($row_go_a8 = mysql_fetch_assoc($go_a8)) {
+while ($row_go_a8 = mysqli_fetch_assoc($go_a8)) {
  
  if ($row_go_a8['RFPETTYPE'] === null) {
   $apptl[$xn-1] = $row_go_a8['APS'] ;
@@ -197,7 +197,7 @@ $a9 = "SELECT PETTYPE, COUNT(PETID) AS EXM FROM TEMPET WHERE PETTYPE < 3 AND POT
 $go_a9 = mysql_query($a9, $tryconnection) or die(mysql_error()) ;
 
 $xm = 0 ;
-while ($row_go_a9 = mysql_fetch_assoc($go_a9)) {
+while ($row_go_a9 = mysqli_fetch_assoc($go_a9)) {
 
  if ($row_go_a9['PETTYPE'] === null) {
   $examn[$xn-1] = $row_go_a9['EXM'] ;
@@ -215,7 +215,7 @@ $a10 = "SELECT PETTYPE, COUNT(PETID) AS NEU FROM TEMPET WHERE PETTYPE < 3 AND PN
 $go_a10 = mysql_query($a10, $tryconnection) or die(mysql_error()) ;
 
 $xm = 0 ;
-while ($row_go_a10 = mysql_fetch_assoc($go_a10)) {
+while ($row_go_a10 = mysqli_fetch_assoc($go_a10)) {
 
  if ($row_go_a10['PETTYPE'] === null) {
   $neut[$xn-1] = $row_go_a10['NEU'] ;
@@ -233,7 +233,7 @@ $int1 = "SELECT PETTYPE, COUNT(PETID) AS NEU FROM TEMPET WHERE PETTYPE < 3  AND 
 $go_int1 = mysql_query($int1, $tryconnection) or die(mysql_error()) ;
 
 $xm = 0 ;
-while ($row_go_int1 = mysql_fetch_assoc($go_int1)) {
+while ($row_go_int1 = mysqli_fetch_assoc($go_int1)) {
 
  if ($row_go_int1['PETTYPE'] === null) {
   }
@@ -248,7 +248,7 @@ $int2 = "SELECT PETTYPE, COUNT(PETID) AS NEU FROM TEMPET WHERE PETTYPE < 3  AND 
 $go_int2 = mysql_query($int2, $tryconnection) or die(mysql_error()) ;
 
 $xm = 0 ;
-while ($row_go_int2 = mysql_fetch_assoc($go_int2)) {
+while ($row_go_int2 = mysqli_fetch_assoc($go_int2)) {
 
  if ($row_go_int2['PETTYPE'] === null) {
   $intf[$xn-1] = $row_go_int2['NEU'] ;
@@ -289,7 +289,7 @@ $go_a13 = mysql_query($a13, $tryconnection) or die(mysql_error()) ;
 
 $xm = 0 ;
 
-while ($row_go_a13 = mysql_fetch_assoc($go_a13)) {
+while ($row_go_a13 = mysqli_fetch_assoc($go_a13)) {
 
 $sw = $row_go_a13['PVACOUNT'];
 $pet = $row_go_a13['PETTYPE'] ;
@@ -447,21 +447,21 @@ switch ($sw) {
 
 $t1 = "SELECT COUNT(DISTINCT(INVPET)) AS DOG1 FROM ARYDVMI WHERE INVDATETIME < DATE_SUB(NOW(), INTERVAL 1 YEAR) AND INVMAJ = 5 AND INVLGSM = 1 AND INVMIN < 16 " ;
 $go_t1 = mysql_query($t1, $tryconnection) or die(mysql_error()) ;
-$row_t1 = mysql_fetch_assoc($go_t1) ;
+$row_t1 = mysqli_fetch_assoc($go_t1) ;
 
 $t2 = "SELECT COUNT(DISTINCT(INVPET)) AS DOG2 FROM DVMINV WHERE  INVMAJ = 6 AND INVLGSM = 1 AND (INSTR(INVDESCR,'SPAY') <> 0  OR INSTR(INVDESCR,'NEUTER') <> 0)" ;
 $go_t2 = mysql_query($t2, $tryconnection) or die(mysql_error()) ;
-$row_t2 = mysql_fetch_assoc($go_t2) ;
+$row_t2 = mysqli_fetch_assoc($go_t2) ;
 
 $t3 =  $row_t1['DOG1'] + $row_t2['DOG2'] ;
 
 $t4 = "SELECT COUNT(DISTINCT(INVPET)) AS CAT1 FROM ARYDVMI WHERE INVDATETIME >= DATE_SUB(NOW(), INTERVAL 1 YEAR) AND INVMAJ = 6 AND INVLGSM = 2 AND (INSTR(INVDESCR,'SPAY') <> 0  OR INSTR(INVDESCR,'NEUTER') <> 0)";
 $go_t4 = mysql_query($t4, $tryconnection) or die(mysql_error()) ;
-$row_t4 = mysql_fetch_assoc($go_t4) ;
+$row_t4 = mysqli_fetch_assoc($go_t4) ;
 
 $t5 = "SELECT COUNT(DISTINCT(INVPET)) AS CAT2 FROM DVMINV WHERE INVMAJ = 6 AND INVLGSM = 2 AND (INSTR(INVDESCR,'SPAY') <> 0  OR INSTR(INVDESCR,'NEUTER') <> 0)" ;
 $go_t5 = mysql_query($t5, $tryconnection) or die(mysql_error()) ;
-$row_t5 = mysql_fetch_assoc($go_t5) ;
+$row_t5 = mysqli_fetch_assoc($go_t5) ;
 
 $t6 =  $row_t4['CAT1'] + $row_t5['CAT2'] ;
 
@@ -485,7 +485,7 @@ $dol5 = "SELECT SUM(INVTOT) AS ALLDOL, INVLGSM FROM TEMACC GROUP BY INVLGSM WITH
 $do_d5 = mysql_query($dol5, $tryconnection) or die(mysql_error()) ;
 
 $xd = 0 ;
-while ($row_d5 = mysql_fetch_assoc($do_d5)) {
+while ($row_d5 = mysqli_fetch_assoc($do_d5)) {
   if ($xd == 2) {
     $dollar[$xd] = 0 ;
     $xd++;
@@ -501,11 +501,11 @@ while ($row_d5 = mysql_fetch_assoc($do_d5)) {
 
 $t1 = "SELECT COUNT(DISTINCT(INVPET)) AS DOG1 FROM ARYDVMI WHERE INVDATETIME > DATE_SUB(NOW(), INTERVAL 1 YEAR) AND INVMAJ = 4 AND INVLGSM = 1 AND (INVMIN > 11 AND INVMIN <  20) " ;
 $go_t1 = mysql_query($t1, $tryconnection) or die(mysql_error()) ;
-$row_t1 = mysql_fetch_assoc($go_t1) ;
+$row_t1 = mysqli_fetch_assoc($go_t1) ;
 
 $t2 = "SELECT COUNT(DISTINCT(INVPET)) AS DOG2 FROM DVMINV WHERE  INVMAJ = 4 AND INVLGSM = 1 AND (INVMIN > 11 AND INVMIN <  20)" ;
 $go_t2 = mysql_query($t2, $tryconnection) or die(mysql_error()) ;
-$row_t2 = mysql_fetch_assoc($go_t2) ;
+$row_t2 = mysqli_fetch_assoc($go_t2) ;
 
 
 //// Section specific to each clinic ^^^
@@ -516,11 +516,11 @@ $t3 =  $row_t1['DOG1'] + $row_t2['DOG2'] ;
 
 $t4 = "SELECT COUNT(DISTINCT(INVPET)) AS CAT1 FROM ARYDVMI WHERE INVDATETIME > DATE_SUB(NOW(), INTERVAL 1 YEAR) AND INVMAJ = 4 AND INVLGSM = 2 AND (INVMIN = 10 OR INVMAJ = 11 OR INVMAJ = 16 OR INVMAJ = 17) ";
 $go_t4 = mysql_query($t4, $tryconnection) or die(mysql_error()) ;
-$row_t4 = mysql_fetch_assoc($go_t4) ;
+$row_t4 = mysqli_fetch_assoc($go_t4) ;
 
 $t5 = "SELECT COUNT(DISTINCT(INVPET)) AS CAT2 FROM DVMINV WHERE INVMAJ = 4 AND INVLGSM = 2 AND (INVMIN = 10 OR INVMAJ = 11 OR INVMAJ = 16 OR INVMAJ = 17)" ;
 $go_t5 = mysql_query($t5, $tryconnection) or die(mysql_error()) ;
-$row_t5 = mysql_fetch_assoc($go_t5) ;
+$row_t5 = mysqli_fetch_assoc($go_t5) ;
 
 //// Section specific to each clinic ^^^
 
@@ -740,7 +740,7 @@ $sp6=array(1=>0,
 
 $dig = "SELECT INVMAJ, INVLGSM, INVTOT FROM TEMACC" ;
 $go_dig = mysql_query($dig, $tryconnection) or die(mysql_error()) ;
-while ($row_dig = mysql_fetch_assoc($go_dig)) {
+while ($row_dig = mysqli_fetch_assoc($go_dig)) {
 
  $spc = $row_dig['INVLGSM'] -1 ;
 //if ($spc == 8) {$spc = 3 ;} 

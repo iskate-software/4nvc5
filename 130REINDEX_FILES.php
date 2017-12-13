@@ -155,11 +155,11 @@ if (isset($_POST['ok'])){
 	if (!empty($_POST['history'])) {
 		$query_PREFER="SELECT TRTMCOUNT FROM PREFER LIMIT 1";
 		$PREFER= mysql_query($query_PREFER, $tryconnection) or die(mysql_error());
-		$row_PREFER = mysql_fetch_assoc($PREFER);
+		$row_PREFER = mysqli_fetch_assoc($PREFER);
 
 		$query_CRITDATA="SELECT LASTCUST FROM CRITDATA LIMIT 1";
 		$CRITDATA=mysql_query($query_CRITDATA, $tryconnection) or die(mysql_error());
-		$row_CRITDATA=mysql_fetch_assoc($CRITDATA);
+		$row_CRITDATA=mysqli_fetch_assoc($CRITDATA);
 		
 		$lasttreatm=floor($row_CRITDATA['LASTCUST']/$row_PREFER['TRTMCOUNT']);
 		
