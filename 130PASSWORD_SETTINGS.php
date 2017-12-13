@@ -2,9 +2,9 @@
 session_start();
 require_once('../tryconnection.php'); 
 
-mysql_select_db($database_tryconnection, $tryconnection);
+mysqli_select_db($tryconnection, $database_tryconnection);
 $query_SESME = "SELECT PASSWORD, SESME, PASSWORD2, SESME2 FROM SESME LIMIT 1";
-$SESME = mysql_query($query_SESME, $tryconnection) or die(mysql_error());
+$SESME = mysqli_query($tryconnection, $query_SESME) or die(mysqli_error($mysqli_link));
 $row_SESME = mysqli_fetch_assoc($SESME);
 
 //SESME = LEVEL 1
@@ -64,7 +64,7 @@ $sesme23=($_POST['sesme23']=='L') ? "Y" : "N";
 $xsesme2=$sesme1.$sesme2.$sesme3.$sesme4.$sesme5.$sesme6.$sesme7.$sesme8.$sesme9.$sesme10.$sesme11.$sesme12.$sesme13.$sesme14.$sesme15.$sesme16.$sesme17.$sesme18.$sesme19.$sesme20.$sesme21.$sesme22.$sesme23;
 
 $updateSQL = "UPDATE SESME SET SESME='$xsesme', SESME2='$xsesme2', PASSWORD='$_POST[password]', PASSWORD2='$_POST[password2]' LIMIT 1";
-$Result1 = mysql_query($updateSQL, $tryconnection) or die(mysql_error());
+$Result1 = mysqli_query($tryconnection, $updateSQL) or die(mysqli_error($mysqli_link));
 
 $close=1;
 }

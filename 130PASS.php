@@ -2,9 +2,9 @@
 session_start();
 require_once('../tryconnection.php'); 
 
-mysql_select_db($database_tryconnection, $tryconnection);
+mysqli_select_db($tryconnection, $database_tryconnection);
 $query_SESME = "SELECT PASSWORD FROM SESME LIMIT 1";
-$SESME = mysql_query($query_SESME, $tryconnection) or die(mysql_error());
+$SESME = mysqli_query($tryconnection, $query_SESME) or die(mysqli_error($mysqli_link));
 $row_SESME = mysqli_fetch_assoc($SESME);
 
 if (isset($_POST['submit'])){

@@ -4,13 +4,13 @@ session_start() ;
 
 require_once('../tryconnection.php'); 
 
-mysql_select_db($database_tryconnection, $tryconnection);
+mysqli_select_db($tryconnection, $database_tryconnection);
 
 for ($j=1; $j < 37000 ; $j++)
  { 
  $view = 'hx'.$j ;
   $dropit = "DROP VIEW IF EXISTS $view " ;
-  $go = mysql_query($dropit, $tryconnection) or die(mysql_error()) ;
+  $go = mysqli_query($tryconnection, $dropit) or die(mysqli_error($mysqli_link)) ;
  }
 echo '</br>  done ' ;
 

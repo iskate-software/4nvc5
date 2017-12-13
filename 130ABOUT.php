@@ -2,39 +2,39 @@
 session_start();
 unset($_SESSION['company']);
 require_once('../tryconnection.php'); 
-mysql_select_db($database_tryconnection, $tryconnection);
+mysqli_select_db($tryconnection, $database_tryconnection);
 
 
 $a0 = "SELECT HOSPNAME FROM CRITDATA LIMIT 1 " ;
-$go_a0 = mysql_query($a0, $tryconnection) or die(mysql_error()) ;
+$go_a0 = mysqli_query($tryconnection, $a0) or die(mysqli_error($mysqli_link)) ;
 $row_go_a0 = mysqli_fetch_assoc($go_a0) ;
 $hospname = $row_go_a0['HOSPNAME'] ;
 
 $a00 = "SELECT ANIMAL, COUNT(PETID) AS PEA, PETTYPE FROM PETMAST  LEFT JOIN ANIMTYPE ON PETMAST.PETTYPE = ANIMTYPE.ANIMALID  WHERE PETTYPE <> 0 AND PDEAD + PMOVED = 0 AND PLASTDATE >= DATE_SUB(NOW(), INTERVAL 5 YEAR) GROUP BY PETTYPE WITH ROLLUP" ;
-$go_a00 = mysql_query($a00, $tryconnection) or die(mysql_error()) ;
+$go_a00 = mysqli_query($tryconnection, $a00) or die(mysqli_error($mysqli_link)) ;
 
 $a1 = "DROP TABLE IF EXISTS TEMPET ";
-$go_a1 = mysql_query($a1, $tryconnection) or die(mysql_error()) ;
+$go_a1 = mysqli_query($tryconnection, $a1) or die(mysqli_error($mysqli_link)) ;
 
 $a2 = "CREATE TABLE TEMPET (PETID INT(8) UNSIGNED, CUSTNO INT(6) UNSIGNED, PETTYPE TINYINT(1) UNSIGNED, PSEX CHAR(1), PDOB DATE, PVACOUNT TINYINT(1) UNSIGNED, PNEUTER CHAR(1),  PLASTDATE DATE, POTH8 DATE)" ;
-$go_a2 = mysql_query($a2, $tryconnection) or die(mysql_error()) ;
+$go_a2 = mysqli_query($tryconnection, $a2) or die(mysqli_error($mysqli_link)) ;
 
 echo 'Retrieving patient data... ' . '</br>' ;
 
 $a3 = "INSERT INTO TEMPET SELECT PETID,CUSTNO,PETTYPE,PSEX,PDOB, PVACOUNT, PNEUTER,PLASTDATE,POTH8 FROM PETMAST WHERE PDEAD + PMOVED = 0  AND PLASTDATE  >= SUBSTR(DATE_SUB(NOW(),INTERVAL 1 YEAR),1,10)" ;
-$go_a3 = mysql_query($a3, $tryconnection) or die(mysql_error()) ;
+$go_a3 = mysqli_query($tryconnection, $a3) or die(mysqli_error($mysqli_link)) ;
 
 $a4 = "SELECT ANIMAL, PETTYPE, COUNT(PETID) AS PATIENTS, COUNT(DISTINCT(TEMPET.CUSTNO)) AS CLIENTS, ROUND(COUNT(PETID)/COUNT(DISTINCT(TEMPET.CUSTNO)),2) AS AVERAGE FROM TEMPET LEFT JOIN ANIMTYPE ON TEMPET.PETTYPE = ANIMTYPE.ANIMALID  GROUP BY TEMPET.PETTYPE WITH ROLLUP" ;
-$go_a4 = mysql_query($a4, $tryconnection) or die(mysql_error()) ;
+$go_a4 = mysqli_query($tryconnection, $a4) or die(mysqli_error($mysqli_link)) ;
 
 echo 'Retrieving patient data 2 ... ' . '</br>' ;
 
 $a45 = "SELECT PETMAST.PETTYPE, COUNT(DISTINCT(PETMAST.PETID)) AS PEI FROM PETMAST RIGHT JOIN TEMPET ON PETMAST.CUSTNO = TEMPET.CUSTNO WHERE PETMAST.PETTYPE > 0 AND PDEAD + PMOVED = 0 AND PETMAST.PLASTDATE > DATE_SUB(NOW(), INTERVAL 5 YEAR) GROUP BY PETMAST.PETTYPE WITH ROLLUP" ;
-$go_a45 = mysql_query($a45, $tryconnection) or die(mysql_error()) ;
+$go_a45 = mysqli_query($tryconnection, $a45) or die(mysqli_error($mysqli_link)) ;
 
 
 $a5 = "SELECT DISTINCT(PETTYPE) FROM TEMPET ORDER BY PETTYPE DESC LIMIT 1" ;
-$go_a5 = mysql_query($a5, $tryconnection) or die(mysql_error()) ;
+$go_a5 = mysqli_query($tryconnection, $a5) or die(mysqli_error($mysqli_link)) ;
 $row_go_a5 = mysqli_fetch_assoc($go_a5) ;
 $max_pet = $row_go_a5['PETTYPE'] ;
 echo ' Started ' ;
@@ -159,11 +159,11 @@ while ($row_go_a45 = mysqli_fetch_assoc($go_a45)) {
 
 
 $a6 = "SELECT COUNT(DISTINCT(CUSTNO)) FROM TEMPET" ;
-$go_a6 = mysql_query($a6, $tryconnection) or die(mysql_error()) ;
+$go_a6 = mysqli_query($tryconnection, $a6) or die(mysqli_error($mysqli_link)) ;
 $row_go_a6 = mysqli_fetch_assoc($go_a6) ;
 
 $a7 = "SELECT COUNT(APPTNUM) AS APS, RFPETTYPE FROM APPTS WHERE CONCAT(DATEOF,':',TIMEOF) > NOW() AND CONCAT(DATEOF,':',TIMEOF) <= DATE_ADD(NOW(), INTERVAL 28 DAY) AND CANCELLED <> 1  AND PETNAME <> 'BLOCK OFF' AND PETNAME <> 'APPOINTMENTS'  GROUP BY RFPETTYPE WITH ROLLUP";
-$go_a7 = mysql_query($a7, $tryconnection) or die(mysql_error()) ;
+$go_a7 = mysqli_query($tryconnection, $a7) or die(mysqli_error($mysqli_link)) ;
 
 $xm = 0 ;
 while ($row_go_a7 = mysqli_fetch_assoc($go_a7)) {
@@ -179,7 +179,7 @@ while ($row_go_a7 = mysqli_fetch_assoc($go_a7)) {
 
 
 $a8 = "SELECT COUNT(APPTNUM) AS APS, RFPETTYPE FROM APPTS WHERE CONCAT(DATEOF,':',TIMEOF) > NOW() AND CONCAT(DATEOF,':',TIMEOF) > DATE_ADD(NOW(), INTERVAL 28 DAY) AND CANCELLED <> 1  AND PETNAME <> 'BLOCK OFF'  AND PETNAME <> 'APPOINTMENTS' GROUP BY RFPETTYPE WITH ROLLUP";
-$go_a8 = mysql_query($a8, $tryconnection) or die(mysql_error()) ;
+$go_a8 = mysqli_query($tryconnection, $a8) or die(mysqli_error($mysqli_link)) ;
 
 while ($row_go_a8 = mysqli_fetch_assoc($go_a8)) {
  
@@ -194,7 +194,7 @@ while ($row_go_a8 = mysqli_fetch_assoc($go_a8)) {
  /////////// Examined ///////////////////
  
 $a9 = "SELECT PETTYPE, COUNT(PETID) AS EXM FROM TEMPET WHERE PETTYPE < 3 AND POTH8 > SUBSTR(DATE_SUB(NOW(),INTERVAL 1 YEAR),1,10) GROUP BY PETTYPE WITH ROLLUP";     //--EXAMINED
-$go_a9 = mysql_query($a9, $tryconnection) or die(mysql_error()) ;
+$go_a9 = mysqli_query($tryconnection, $a9) or die(mysqli_error($mysqli_link)) ;
 
 $xm = 0 ;
 while ($row_go_a9 = mysqli_fetch_assoc($go_a9)) {
@@ -212,7 +212,7 @@ $examn[2] = $examn[0] + $examn[1] ;
 ////////// Neutered ////////////
  
 $a10 = "SELECT PETTYPE, COUNT(PETID) AS NEU FROM TEMPET WHERE PETTYPE < 3 AND PNEUTER GROUP BY PETTYPE WITH ROLLUP";   //---- NEUTERED AND EXAMINED
-$go_a10 = mysql_query($a10, $tryconnection) or die(mysql_error()) ;
+$go_a10 = mysqli_query($tryconnection, $a10) or die(mysqli_error($mysqli_link)) ;
 
 $xm = 0 ;
 while ($row_go_a10 = mysqli_fetch_assoc($go_a10)) {
@@ -230,7 +230,7 @@ $neut[2] = $neut[0] + $neut[1] ;
 ///// Intact  males
 
 $int1 = "SELECT PETTYPE, COUNT(PETID) AS NEU FROM TEMPET WHERE PETTYPE < 3  AND PSEX = 'M' AND PDOB >= DATE_SUB(NOW(), INTERVAL 6 MONTH) AND NOT PNEUTER GROUP BY PETTYPE WITH ROLLUP";   //---- NEUTERED AND EXAMINED
-$go_int1 = mysql_query($int1, $tryconnection) or die(mysql_error()) ;
+$go_int1 = mysqli_query($tryconnection, $int1) or die(mysqli_error($mysqli_link)) ;
 
 $xm = 0 ;
 while ($row_go_int1 = mysqli_fetch_assoc($go_int1)) {
@@ -245,7 +245,7 @@ while ($row_go_int1 = mysqli_fetch_assoc($go_int1)) {
 $intm[2] = $intm[0] + $intm[1] ;
 
 $int2 = "SELECT PETTYPE, COUNT(PETID) AS NEU FROM TEMPET WHERE PETTYPE < 3  AND PSEX = 'F' AND PDOB >= DATE_SUB(NOW(), INTERVAL 6 MONTH) AND NOT PNEUTER GROUP BY PETTYPE WITH ROLLUP";   //---- NEUTERED AND EXAMINED
-$go_int2 = mysql_query($int2, $tryconnection) or die(mysql_error()) ;
+$go_int2 = mysqli_query($tryconnection, $int2) or die(mysqli_error($mysqli_link)) ;
 
 $xm = 0 ;
 while ($row_go_int2 = mysqli_fetch_assoc($go_int2)) {
@@ -285,7 +285,7 @@ echo 'Retrieving vaccination data... ' . '</br>' ;
 
 // $a13 = "SELECT COUNT(PETID) AS PTV, PETTYPE, PVACOUNT FROM TEMPET WHERE PDOB > DATE_SUB(NOW(), INTERVAL 12 WEEK)  GROUP BY PETTYPE" ;
 $a13 = "SELECT COUNT(PETID) AS PEDI,PVACOUNT,PETTYPE FROM PETMAST WHERE PDOB > DATE_SUB(NOW(), INTERVAL 1 YEAR )  GROUP BY PETTYPE,PVACOUNT" ;
-$go_a13 = mysql_query($a13, $tryconnection) or die(mysql_error()) ;
+$go_a13 = mysqli_query($tryconnection, $a13) or die(mysqli_error($mysqli_link)) ;
 
 $xm = 0 ;
 
@@ -446,21 +446,21 @@ switch ($sw) {
 //// Section specific to each clinic vvv
 
 $t1 = "SELECT COUNT(DISTINCT(INVPET)) AS DOG1 FROM ARYDVMI WHERE INVDATETIME < DATE_SUB(NOW(), INTERVAL 1 YEAR) AND INVMAJ = 5 AND INVLGSM = 1 AND INVMIN < 16 " ;
-$go_t1 = mysql_query($t1, $tryconnection) or die(mysql_error()) ;
+$go_t1 = mysqli_query($tryconnection, $t1) or die(mysqli_error($mysqli_link)) ;
 $row_t1 = mysqli_fetch_assoc($go_t1) ;
 
 $t2 = "SELECT COUNT(DISTINCT(INVPET)) AS DOG2 FROM DVMINV WHERE  INVMAJ = 6 AND INVLGSM = 1 AND (INSTR(INVDESCR,'SPAY') <> 0  OR INSTR(INVDESCR,'NEUTER') <> 0)" ;
-$go_t2 = mysql_query($t2, $tryconnection) or die(mysql_error()) ;
+$go_t2 = mysqli_query($tryconnection, $t2) or die(mysqli_error($mysqli_link)) ;
 $row_t2 = mysqli_fetch_assoc($go_t2) ;
 
 $t3 =  $row_t1['DOG1'] + $row_t2['DOG2'] ;
 
 $t4 = "SELECT COUNT(DISTINCT(INVPET)) AS CAT1 FROM ARYDVMI WHERE INVDATETIME >= DATE_SUB(NOW(), INTERVAL 1 YEAR) AND INVMAJ = 6 AND INVLGSM = 2 AND (INSTR(INVDESCR,'SPAY') <> 0  OR INSTR(INVDESCR,'NEUTER') <> 0)";
-$go_t4 = mysql_query($t4, $tryconnection) or die(mysql_error()) ;
+$go_t4 = mysqli_query($tryconnection, $t4) or die(mysqli_error($mysqli_link)) ;
 $row_t4 = mysqli_fetch_assoc($go_t4) ;
 
 $t5 = "SELECT COUNT(DISTINCT(INVPET)) AS CAT2 FROM DVMINV WHERE INVMAJ = 6 AND INVLGSM = 2 AND (INSTR(INVDESCR,'SPAY') <> 0  OR INSTR(INVDESCR,'NEUTER') <> 0)" ;
-$go_t5 = mysql_query($t5, $tryconnection) or die(mysql_error()) ;
+$go_t5 = mysqli_query($tryconnection, $t5) or die(mysqli_error($mysqli_link)) ;
 $row_t5 = mysqli_fetch_assoc($go_t5) ;
 
 $t6 =  $row_t4['CAT1'] + $row_t5['CAT2'] ;
@@ -468,21 +468,21 @@ $t6 =  $row_t4['CAT1'] + $row_t5['CAT2'] ;
 echo 'Retrieving accounting data... ' . '</br>' ;
 
 $dol1 = "DROP TABLE IF EXISTS TEMACC;" ;
-$do_d1 = mysql_query($dol1, $tryconnection) or die(mysql_error()) ;
+$do_d1 = mysqli_query($tryconnection, $dol1) or die(mysqli_error($mysqli_link)) ;
 
 $dol2 = "CREATE TABLE TEMACC (INVNO INT(6),INVPET INT(8) UNSIGNED, INVDATE DATE, INVMAJ CHAR(3), INVTOT FLOAT(10,2), INVLGSM CHAR(1), INVDESCR CHAR(30) ) " ;
-$do_d2 = mysql_query($dol2, $tryconnection) or die(mysql_error()) ;
+$do_d2 = mysqli_query($tryconnection, $dol2) or die(mysqli_error($mysqli_link)) ;
 
 $dol3 = "INSERT INTO TEMACC SELECT INVNO, INVPET, INVDATETIME, INVMAJ, INVTOT, INVLGSM,INVDESCR FROM DVMINV WHERE INVDECLINE <> 1 AND INVMAJ < 90 AND INVLGSM <> 0  AND INVNO > 0" ;
-$do_d3 = mysql_query($dol3, $tryconnection) or die(mysql_error()) ;
+$do_d3 = mysqli_query($tryconnection, $dol3) or die(mysqli_error($mysqli_link)) ;
 
 $dol4 = "INSERT INTO TEMACC SELECT INVNO, INVPET,INVDATETIME, INVMAJ, INVTOT, INVLGSM,INVDESCR FROM ARYDVMI  WHERE INVDATETIME >= DATE_SUB(NOW(), INTERVAL 1 YEAR)  AND INVDECLINE <> 1 AND INVMAJ < 90  AND INVLGSM <> 0  AND INVNO > 0 " ;
-$do_d4 = mysql_query($dol4, $tryconnection) or die(mysql_error()) ;
+$do_d4 = mysqli_query($tryconnection, $dol4) or die(mysqli_error($mysqli_link)) ;
 
 //// Section specific to each clinic ^^^
 
 $dol5 = "SELECT SUM(INVTOT) AS ALLDOL, INVLGSM FROM TEMACC GROUP BY INVLGSM WITH ROLLUP" ;
-$do_d5 = mysql_query($dol5, $tryconnection) or die(mysql_error()) ;
+$do_d5 = mysqli_query($tryconnection, $dol5) or die(mysqli_error($mysqli_link)) ;
 
 $xd = 0 ;
 while ($row_d5 = mysqli_fetch_assoc($do_d5)) {
@@ -500,11 +500,11 @@ while ($row_d5 = mysqli_fetch_assoc($do_d5)) {
 //// Section specific to each clinic vvv
 
 $t1 = "SELECT COUNT(DISTINCT(INVPET)) AS DOG1 FROM ARYDVMI WHERE INVDATETIME > DATE_SUB(NOW(), INTERVAL 1 YEAR) AND INVMAJ = 4 AND INVLGSM = 1 AND (INVMIN > 11 AND INVMIN <  20) " ;
-$go_t1 = mysql_query($t1, $tryconnection) or die(mysql_error()) ;
+$go_t1 = mysqli_query($tryconnection, $t1) or die(mysqli_error($mysqli_link)) ;
 $row_t1 = mysqli_fetch_assoc($go_t1) ;
 
 $t2 = "SELECT COUNT(DISTINCT(INVPET)) AS DOG2 FROM DVMINV WHERE  INVMAJ = 4 AND INVLGSM = 1 AND (INVMIN > 11 AND INVMIN <  20)" ;
-$go_t2 = mysql_query($t2, $tryconnection) or die(mysql_error()) ;
+$go_t2 = mysqli_query($tryconnection, $t2) or die(mysqli_error($mysqli_link)) ;
 $row_t2 = mysqli_fetch_assoc($go_t2) ;
 
 
@@ -515,11 +515,11 @@ $t3 =  $row_t1['DOG1'] + $row_t2['DOG2'] ;
 //// Section specific to each clinic vvv
 
 $t4 = "SELECT COUNT(DISTINCT(INVPET)) AS CAT1 FROM ARYDVMI WHERE INVDATETIME > DATE_SUB(NOW(), INTERVAL 1 YEAR) AND INVMAJ = 4 AND INVLGSM = 2 AND (INVMIN = 10 OR INVMAJ = 11 OR INVMAJ = 16 OR INVMAJ = 17) ";
-$go_t4 = mysql_query($t4, $tryconnection) or die(mysql_error()) ;
+$go_t4 = mysqli_query($tryconnection, $t4) or die(mysqli_error($mysqli_link)) ;
 $row_t4 = mysqli_fetch_assoc($go_t4) ;
 
 $t5 = "SELECT COUNT(DISTINCT(INVPET)) AS CAT2 FROM DVMINV WHERE INVMAJ = 4 AND INVLGSM = 2 AND (INVMIN = 10 OR INVMAJ = 11 OR INVMAJ = 16 OR INVMAJ = 17)" ;
-$go_t5 = mysql_query($t5, $tryconnection) or die(mysql_error()) ;
+$go_t5 = mysqli_query($tryconnection, $t5) or die(mysqli_error($mysqli_link)) ;
 $row_t5 = mysqli_fetch_assoc($go_t5) ;
 
 //// Section specific to each clinic ^^^
@@ -739,7 +739,7 @@ $sp6=array(1=>0,
 
 
 $dig = "SELECT INVMAJ, INVLGSM, INVTOT FROM TEMACC" ;
-$go_dig = mysql_query($dig, $tryconnection) or die(mysql_error()) ;
+$go_dig = mysqli_query($tryconnection, $dig) or die(mysqli_error($mysqli_link)) ;
 while ($row_dig = mysqli_fetch_assoc($go_dig)) {
 
  $spc = $row_dig['INVLGSM'] -1 ;
