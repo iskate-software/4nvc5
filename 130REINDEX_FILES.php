@@ -1,6 +1,6 @@
 <?php 
 require_once('../tryconnection.php'); 
-mysql_select_db($database_tryconnection, $tryconnection);
+mysqli_select_db($tryconnection, $database_tryconnection);
 
 if (isset($_POST['ok'])){
  
@@ -19,20 +19,20 @@ if (isset($_POST['ok'])){
    $query_repair13 = "REPAIR TABLE APPTDOCS" ;
    $query_repair14 = "REPAIR TABLE HRSDOC" ;
    
-   $result=mysql_query($query_repair1, $tryconnection) or die(mysql_error()) ;
-   $result=mysql_query($query_repair2, $tryconnection) or die(mysql_error()) ;
-   $result=mysql_query($query_repair3, $tryconnection) or die(mysql_error()) ;
-   $result=mysql_query($query_repair4, $tryconnection) or die(mysql_error()) ;
-   $result=mysql_query($query_repair5, $tryconnection) or die(mysql_error()) ;
-   $result=mysql_query($query_repair6, $tryconnection) or die(mysql_error()) ;
-   $result=mysql_query($query_repair7, $tryconnection) or die(mysql_error()) ;
-   $result=mysql_query($query_repair8, $tryconnection) or die(mysql_error()) ;
-   $result=mysql_query($query_repair9, $tryconnection) or die(mysql_error()) ;
-   $result=mysql_query($query_repair10, $tryconnection) or die(mysql_error()) ;
-   $result=mysql_query($query_repair11, $tryconnection) or die(mysql_error()) ;
-   $result=mysql_query($query_repair12, $tryconnection) or die(mysql_error()) ;
-   $result=mysql_query($query_repair13, $tryconnection) or die(mysql_error()) ;
-   $result=mysql_query($query_repair14, $tryconnection) or die(mysql_error()) ;
+   $result=mysqli_query($tryconnection, $query_repair1) or die(mysqli_error($mysqli_link)) ;
+   $result=mysqli_query($tryconnection, $query_repair2) or die(mysqli_error($mysqli_link)) ;
+   $result=mysqli_query($tryconnection, $query_repair3) or die(mysqli_error($mysqli_link)) ;
+   $result=mysqli_query($tryconnection, $query_repair4) or die(mysqli_error($mysqli_link)) ;
+   $result=mysqli_query($tryconnection, $query_repair5) or die(mysqli_error($mysqli_link)) ;
+   $result=mysqli_query($tryconnection, $query_repair6) or die(mysqli_error($mysqli_link)) ;
+   $result=mysqli_query($tryconnection, $query_repair7) or die(mysqli_error($mysqli_link)) ;
+   $result=mysqli_query($tryconnection, $query_repair8) or die(mysqli_error($mysqli_link)) ;
+   $result=mysqli_query($tryconnection, $query_repair9) or die(mysqli_error($mysqli_link)) ;
+   $result=mysqli_query($tryconnection, $query_repair10) or die(mysqli_error($mysqli_link)) ;
+   $result=mysqli_query($tryconnection, $query_repair11) or die(mysqli_error($mysqli_link)) ;
+   $result=mysqli_query($tryconnection, $query_repair12) or die(mysqli_error($mysqli_link)) ;
+   $result=mysqli_query($tryconnection, $query_repair13) or die(mysqli_error($mysqli_link)) ;
+   $result=mysqli_query($tryconnection, $query_repair14) or die(mysqli_error($mysqli_link)) ;
    
    
    $query_opti1 = "OPTIMIZE TABLE INVHOLD" ;
@@ -50,175 +50,175 @@ if (isset($_POST['ok'])){
    $query_opti13 = "OPTIMIZE TABLE APPTDOCS" ;
    $query_opti14 = "OPTIMIZE TABLE HRSDOC" ;
    
-   $result=mysql_query($query_opti1, $tryconnection) or die(mysql_error()) ;
-   $result=mysql_query($query_opti2, $tryconnection) or die(mysql_error()) ;
-   $result=mysql_query($query_opti3, $tryconnection) or die(mysql_error()) ;
-   $result=mysql_query($query_opti4, $tryconnection) or die(mysql_error()) ;
-   $result=mysql_query($query_opti5, $tryconnection) or die(mysql_error()) ;
-   $result=mysql_query($query_opti6, $tryconnection) or die(mysql_error()) ;
-   $result=mysql_query($query_opti7, $tryconnection) or die(mysql_error()) ;
-   $result=mysql_query($query_opti8, $tryconnection) or die(mysql_error()) ;
-   $result=mysql_query($query_opti9, $tryconnection) or die(mysql_error()) ;
-   $result=mysql_query($query_opti10, $tryconnection) or die(mysql_error()) ;
-   $result=mysql_query($query_opti11, $tryconnection) or die(mysql_error()) ;
-   $result=mysql_query($query_opti12, $tryconnection) or die(mysql_error()) ;
-   $result=mysql_query($query_opti13, $tryconnection) or die(mysql_error()) ;
-   $result=mysql_query($query_opti14, $tryconnection) or die(mysql_error()) ;
+   $result=mysqli_query($tryconnection, $query_opti1) or die(mysqli_error($mysqli_link)) ;
+   $result=mysqli_query($tryconnection, $query_opti2) or die(mysqli_error($mysqli_link)) ;
+   $result=mysqli_query($tryconnection, $query_opti3) or die(mysqli_error($mysqli_link)) ;
+   $result=mysqli_query($tryconnection, $query_opti4) or die(mysqli_error($mysqli_link)) ;
+   $result=mysqli_query($tryconnection, $query_opti5) or die(mysqli_error($mysqli_link)) ;
+   $result=mysqli_query($tryconnection, $query_opti6) or die(mysqli_error($mysqli_link)) ;
+   $result=mysqli_query($tryconnection, $query_opti7) or die(mysqli_error($mysqli_link)) ;
+   $result=mysqli_query($tryconnection, $query_opti8) or die(mysqli_error($mysqli_link)) ;
+   $result=mysqli_query($tryconnection, $query_opti9) or die(mysqli_error($mysqli_link)) ;
+   $result=mysqli_query($tryconnection, $query_opti10) or die(mysqli_error($mysqli_link)) ;
+   $result=mysqli_query($tryconnection, $query_opti11) or die(mysqli_error($mysqli_link)) ;
+   $result=mysqli_query($tryconnection, $query_opti12) or die(mysqli_error($mysqli_link)) ;
+   $result=mysqli_query($tryconnection, $query_opti13) or die(mysqli_error($mysqli_link)) ;
+   $result=mysqli_query($tryconnection, $query_opti14) or die(mysqli_error($mysqli_link)) ;
    
 	if (!empty($_POST['client'])) {
 	$query_index="DROP INDEX ARNAME ON ARCUSTO";
-	$result=mysql_query($query_index, $tryconnection) or die(mysql_error());	
+	$result=mysqli_query($tryconnection, $query_index) or die(mysqli_error($mysqli_link));	
 	
 	$query_index="DROP INDEX ARCUSTN ON ARCUSTO";
-	$result=mysql_query($query_index, $tryconnection) or die(mysql_error());	
+	$result=mysqli_query($tryconnection, $query_index) or die(mysqli_error($mysqli_link));	
 	
 	$query_index="DROP INDEX ARSECNM ON ARCUSTO";
-	$result=mysql_query($query_index, $tryconnection) or die(mysql_error());	
+	$result=mysqli_query($tryconnection, $query_index) or die(mysqli_error($mysqli_link));	
 	
 	$query_index="DROP INDEX ARPHONE ON ARCUSTO";
-	$result=mysql_query($query_index, $tryconnection) or die(mysql_error());	
+	$result=mysqli_query($tryconnection, $query_index) or die(mysqli_error($mysqli_link));	
 	
 	$query_index="CREATE INDEX ARNAME ON ARCUSTO(COMPANY(15), CONTACT(5), CUSTNO)";
-	$result=mysql_query($query_index, $tryconnection) or die(mysql_error());	
+	$result=mysqli_query($tryconnection, $query_index) or die(mysqli_error($mysqli_link));	
 
 	$query_index="CREATE INDEX ARCUSTN ON ARCUSTO(CUSTNO)";
-	$result=mysql_query($query_index, $tryconnection) or die(mysql_error());	
+	$result=mysqli_query($tryconnection, $query_index) or die(mysqli_error($mysqli_link));	
 
 	$query_index="CREATE INDEX ARSECNM ON ARCUSTO(COMPANY(15), CONTACT(5), CUSTNO)";
-	$result=mysql_query($query_index, $tryconnection) or die(mysql_error());	
+	$result=mysqli_query($tryconnection, $query_index) or die(mysqli_error($mysqli_link));	
 	
 	$query_index="CREATE INDEX ARPHONE ON ARCUSTO(PHONE)";
-	$result=mysql_query($query_index, $tryconnection) or die(mysql_error());
+	$result=mysqli_query($tryconnection, $query_index) or die(mysqli_error($mysqli_link));
 	
 //	$query_unlock = "INSERT INTO LOCKED ARCUSTO " ;
 	}
 	
 	if (!empty($_POST['patient'])) {
 	$query_index="DROP INDEX OWNER ON PETMAST";
-	$result=mysql_query($query_index, $tryconnection) or die(mysql_error());	
+	$result=mysqli_query($tryconnection, $query_index) or die(mysqli_error($mysqli_link));	
 
 	$query_index="DROP INDEX OWNERMD ON PETMAST";
-	$result=mysql_query($query_index, $tryconnection) or die(mysql_error());	
+	$result=mysqli_query($tryconnection, $query_index) or die(mysqli_error($mysqli_link));	
 
 	$query_index="DROP INDEX RABTAG ON PETMAST";
-	$result=mysql_query($query_index, $tryconnection) or die(mysql_error());	
+	$result=mysqli_query($tryconnection, $query_index) or die(mysqli_error($mysqli_link));	
 
 	$query_index="DROP INDEX RABLAST ON PETMAST";
-	$result=mysql_query($query_index, $tryconnection) or die(mysql_error());	
+	$result=mysqli_query($tryconnection, $query_index) or die(mysqli_error($mysqli_link));	
 
 	$query_index="DROP INDEX REGNAME ON PETMAST";
-	$result=mysql_query($query_index, $tryconnection) or die(mysql_error());	
+	$result=mysqli_query($tryconnection, $query_index) or die(mysqli_error($mysqli_link));	
 
 	$query_index="DROP INDEX PFILENO ON PETMAST";
-	$result=mysql_query($query_index, $tryconnection) or die(mysql_error());	
+	$result=mysqli_query($tryconnection, $query_index) or die(mysqli_error($mysqli_link));	
 
 	$query_index="DROP INDEX TATTOO ON PETMAST";
-	$result=mysql_query($query_index, $tryconnection) or die(mysql_error());	
+	$result=mysqli_query($tryconnection, $query_index) or die(mysqli_error($mysqli_link));	
 
 	$query_index="DROP INDEX  BREED ON PETBREED ";
-	$result=mysql_query($query_index, $tryconnection) or die(mysql_error());	
+	$result=mysqli_query($tryconnection, $query_index) or die(mysqli_error($mysqli_link));	
 
 	$query_index="DROP INDEX COLOUR ON PETCOLOR";
-	$result=mysql_query($query_index, $tryconnection) or die(mysql_error());	
+	$result=mysqli_query($tryconnection, $query_index) or die(mysqli_error($mysqli_link));	
 
 	$query_index="CREATE INDEX OWNER ON PETMAST(CUSTNO)";
-	$result=mysql_query($query_index, $tryconnection) or die(mysql_error());	
+	$result=mysqli_query($tryconnection, $query_index) or die(mysqli_error($mysqli_link));	
 	
 	$query_index="CREATE INDEX OWNERMD ON PETMAST (CUSTNO,PDEAD,PMOVED)";
-	$result=mysql_query($query_index, $tryconnection) or die(mysql_error());	
+	$result=mysqli_query($tryconnection, $query_index) or die(mysqli_error($mysqli_link));	
 	
 	$query_index="CREATE INDEX RABTAG ON PETMAST (PRABTAG)";
-	$result=mysql_query($query_index, $tryconnection) or die(mysql_error());	
+	$result=mysqli_query($tryconnection, $query_index) or die(mysqli_error($mysqli_link));	
 
 	$query_index="CREATE INDEX RABLAST ON PETMAST (PRABLAST)";
-	$result=mysql_query($query_index, $tryconnection) or die(mysql_error());	
+	$result=mysqli_query($tryconnection, $query_index) or die(mysqli_error($mysqli_link));	
 
 	$query_index="CREATE INDEX REGNAME ON PETMAST (PETNAME(10))";
-	$result=mysql_query($query_index, $tryconnection) or die(mysql_error());	
+	$result=mysqli_query($tryconnection, $query_index) or die(mysqli_error($mysqli_link));	
 
 	$query_index="CREATE INDEX PFILENO ON PETMAST (PFILENO)";
-	$result=mysql_query($query_index, $tryconnection) or die(mysql_error());	
+	$result=mysqli_query($tryconnection, $query_index) or die(mysqli_error($mysqli_link));	
 
 	$query_index="CREATE INDEX TATTOO ON PETMAST (PTATNO)";
-	$result=mysql_query($query_index, $tryconnection) or die(mysql_error());	
+	$result=mysqli_query($tryconnection, $query_index) or die(mysqli_error($mysqli_link));	
 
 //	$query_index="CREATE INDEX STABLE ON PETMAST (STAB)";
 //	$result=mysql_query($query_index, $tryconnection) or die(mysql_error());	
 
 	$query_index="CREATE INDEX BREED ON PETBREED (BSPECIES, BREED)";
-	$result=mysql_query($query_index, $tryconnection) or die(mysql_error());	
+	$result=mysqli_query($tryconnection, $query_index) or die(mysqli_error($mysqli_link));	
 
 	$query_index="CREATE INDEX COLOUR ON PETCOLOR (CSPECIES, COLOUR(20))";
-	$result=mysql_query($query_index, $tryconnection) or die(mysql_error());	
+	$result=mysqli_query($tryconnection, $query_index) or die(mysqli_error($mysqli_link));	
 	}
 
 	if (!empty($_POST['history'])) {
 		$query_PREFER="SELECT TRTMCOUNT FROM PREFER LIMIT 1";
-		$PREFER= mysql_query($query_PREFER, $tryconnection) or die(mysql_error());
-		$row_PREFER = mysql_fetch_assoc($PREFER);
+		$PREFER= mysqli_query($tryconnection, $query_PREFER) or die(mysqli_error($mysqli_link));
+		$row_PREFER = mysqli_fetch_assoc($PREFER);
 
 		$query_CRITDATA="SELECT LASTCUST FROM CRITDATA LIMIT 1";
-		$CRITDATA=mysql_query($query_CRITDATA, $tryconnection) or die(mysql_error());
-		$row_CRITDATA=mysql_fetch_assoc($CRITDATA);
+		$CRITDATA=mysqli_query($tryconnection, $query_CRITDATA) or die(mysqli_error($mysqli_link));
+		$row_CRITDATA=mysqli_fetch_assoc($CRITDATA);
 		
 		$lasttreatm=floor($row_CRITDATA['LASTCUST']/$row_PREFER['TRTMCOUNT']);
 		
 		for ($i=0; $i < $lasttreatm; $i++){
 		$treatmxx='TREATM'.$i;
 		$query_index="DROP INDEX PETID ON $treatmxx";
-		$result=mysql_query($query_index, $tryconnection) or die(mysql_error());	
+		$result=mysqli_query($tryconnection, $query_index) or die(mysqli_error($mysqli_link));	
 	
 		$query_index="DROP INDEX TREATDATE ON $treatmxx";
-		$result=mysql_query($query_index, $tryconnection) or die(mysql_error());	
+		$result=mysqli_query($tryconnection, $query_index) or die(mysqli_error($mysqli_link));	
 	
 		$query_index="CREATE INDEX PETID ON $treatmxx (PETID)";
-		$result=mysql_query($query_index, $tryconnection) or die(mysql_error());	
+		$result=mysqli_query($tryconnection, $query_index) or die(mysqli_error($mysqli_link));	
 	
 		$query_index="CREATE INDEX TREATDATE ON $treatmxx (TREATDATE)";
-		$result=mysql_query($query_index, $tryconnection) or die(mysql_error());	
+		$result=mysqli_query($tryconnection, $query_index) or die(mysqli_error($mysqli_link));	
 		}
 	}
 	
 	if (!empty($_POST['reception'])) {
 	$query_index="DROP INDEX CLIENT ON RECEP";
-	$result=mysql_query($query_index, $tryconnection) or die(mysql_error());	
+	$result=mysqli_query($tryconnection, $query_index) or die(mysqli_error($mysqli_link));	
 
 	$query_index="DROP INDEX CLIENTC ON RECEP";
-	$result=mysql_query($query_index, $tryconnection) or die(mysql_error());	
+	$result=mysqli_query($tryconnection, $query_index) or die(mysqli_error($mysqli_link));	
 
 	$query_index="CREATE INDEX CLIENT ON RECEP (NAME(15), FNAME(8))";
-	$result=mysql_query($query_index, $tryconnection) or die(mysql_error());	
+	$result=mysqli_query($tryconnection, $query_index) or die(mysqli_error($mysqli_link));	
 
 	$query_index="CREATE INDEX CLIENTC ON RECEP (DATEIN)";
-	$result=mysql_query($query_index, $tryconnection) or die(mysql_error());	
+	$result=mysqli_query($tryconnection, $query_index) or die(mysqli_error($mysqli_link));	
 	}
 	
 //	if (!empty($_POST['worksheet'])) {}
 	
 	if (!empty($_POST['inventory'])) {
 	$query_index="DROP INDEX ARVPC ON ARINVT";
-	$result=mysql_query($query_index, $tryconnection) or die(mysql_error());	
+	$result=mysqli_query($tryconnection, $query_index) or die(mysqli_error($mysqli_link));	
 
 	$query_index="DROP INDEX ARIVIT ON ARINVT";
-	$result=mysql_query($query_index, $tryconnection) or die(mysql_error());	
+	$result=mysqli_query($tryconnection, $query_index) or die(mysqli_error($mysqli_link));	
 
 	$query_index="DROP INDEX ARSEQ ON ARINVT";
-	$result=mysql_query($query_index, $tryconnection) or die(mysql_error());	
+	$result=mysqli_query($tryconnection, $query_index) or die(mysqli_error($mysqli_link));	
 
 	$query_index="DROP INDEX ARBCODE ON ARINVT";
-	$result=mysql_query($query_index, $tryconnection) or die(mysql_error());	
+	$result=mysqli_query($tryconnection, $query_index) or die(mysqli_error($mysqli_link));	
 
 	$query_index="CREATE INDEX ARVPC ON ARINVT (VPARTNO(7))";
-	$result=mysql_query($query_index, $tryconnection) or die(mysql_error());	
+	$result=mysqli_query($tryconnection, $query_index) or die(mysqli_error($mysqli_link));	
 
 	$query_index="CREATE INDEX ARIVIT ON ARINVT (ITEM, DESCRIP(15))";
-	$result=mysql_query($query_index, $tryconnection) or die(mysql_error());	
+	$result=mysqli_query($tryconnection, $query_index) or die(mysqli_error($mysqli_link));	
 
 	$query_index="CREATE INDEX ARSEQ ON ARINVT (SEQ, ITEM)";
-	$result=mysql_query($query_index, $tryconnection) or die(mysql_error());	
+	$result=mysqli_query($tryconnection, $query_index) or die(mysqli_error($mysqli_link));	
 
 	$query_index="CREATE INDEX ARBCODE ON ARINVT (BARCODE)";
-	$result=mysql_query($query_index, $tryconnection) or die(mysql_error());	
+	$result=mysqli_query($tryconnection, $query_index) or die(mysqli_error($mysqli_link));	
 	}
 	
 	if (!empty($_POST['comment'])) {
@@ -227,149 +227,149 @@ if (isset($_POST['ok'])){
 	if (!empty($_POST['appointment'])) {
 	
 	$query_index="DROP INDEX APPTDOCS ON APPTDOCS";
-	$result=mysql_query($query_index, $tryconnection) or die(mysql_error());
+	$result=mysqli_query($tryconnection, $query_index) or die(mysqli_error($mysqli_link));
 	
 	$query_index="DROP INDEX HRSDOC ON HRSDOC";
-	$result=mysql_query($query_index, $tryconnection) or die(mysql_error());
+	$result=mysqli_query($tryconnection, $query_index) or die(mysqli_error($mysqli_link));
 
 	$query_index="CREATE INDEX APPTDOCS ON APPTDOCS (DATEIS, SEQ)";
-	$result=mysql_query($query_index, $tryconnection) or die(mysql_error());	
+	$result=mysqli_query($tryconnection, $query_index) or die(mysqli_error($mysqli_link));	
 
 	$query_index="CREATE INDEX HRSDOC ON HRSDOC (DOCTOR, DAYINWEEK)";
-	$result=mysql_query($query_index, $tryconnection) or die(mysql_error());	
+	$result=mysqli_query($tryconnection, $query_index) or die(mysqli_error($mysqli_link));	
 }
 	
 	if (!empty($_POST['receivable'])) {
 	$query_index="DROP INDEX ARCINVO ON ARARECV";
-	$result=mysql_query($query_index, $tryconnection) or die(mysql_error());	
+	$result=mysqli_query($tryconnection, $query_index) or die(mysqli_error($mysqli_link));	
 
 	$query_index="DROP INDEX ARRECHS ON ARARECV";
-	$result=mysql_query($query_index, $tryconnection) or die(mysql_error());	
+	$result=mysqli_query($tryconnection, $query_index) or die(mysqli_error($mysqli_link));	
 
 	$query_index="CREATE INDEX ARCINVO ON ARARECV (CUSTNO, INVDTE, INVNO)";
-	$result=mysql_query($query_index, $tryconnection) or die(mysql_error());	
+	$result=mysqli_query($tryconnection, $query_index) or die(mysqli_error($mysqli_link));	
 
 	$query_index="CREATE INDEX ARRECHS ON ARARECV (CUSTNO, INVDTE, INVNO)";
-	$result=mysql_query($query_index, $tryconnection) or die(mysql_error());	
+	$result=mysqli_query($tryconnection, $query_index) or die(mysqli_error($mysqli_link));	
 	}
 	
 	if (!empty($_POST['invoicing'])) {
 	$query_index="DROP INDEX ARINVOI ON ARINVOI";
-	$result=mysql_query($query_index, $tryconnection) or die(mysql_error());	
+	$result=mysqli_query($tryconnection, $query_index) or die(mysqli_error($mysqli_link));	
 
 	$query_index="DROP INDEX CLINIC ON ARINVOI";
-	$result=mysql_query($query_index, $tryconnection) or die(mysql_error());	
+	$result=mysqli_query($tryconnection, $query_index) or die(mysqli_error($mysqli_link));	
 
 	$query_index="DROP INDEX ARGST ON ARGST";
-	$result=mysql_query($query_index, $tryconnection) or die(mysql_error());	
+	$result=mysqli_query($tryconnection, $query_index) or die(mysqli_error($mysqli_link));	
 
 	$query_index="DROP INDEX DVMINV ON DVMINV";
-	$result=mysql_query($query_index, $tryconnection) or die(mysql_error());	
+	$result=mysqli_query($tryconnection, $query_index) or die(mysqli_error($mysqli_link));	
 
 	$query_index="DROP INDEX DVMINVP ON DVMINV";
-	$result=mysql_query($query_index, $tryconnection) or die(mysql_error());	
+	$result=mysqli_query($tryconnection, $query_index) or die(mysqli_error($mysqli_link));	
 
 	$query_index="DROP INDEX SCAT ON SALESCAT";
-	$result=mysql_query($query_index, $tryconnection) or die(mysql_error());	
+	$result=mysqli_query($tryconnection, $query_index) or die(mysqli_error($mysqli_link));	
 
 	$query_index="DROP INDEX INVHOLD ON INVHOLD";
-	$result=mysql_query($query_index, $tryconnection) or die(mysql_error());	
+	$result=mysqli_query($tryconnection, $query_index) or die(mysqli_error($mysqli_link));	
 
 	$query_index="DROP INDEX ESTHOLD ON ESTHOLD ";
-	$result=mysql_query($query_index, $tryconnection) or die(mysql_error());	
+	$result=mysqli_query($tryconnection, $query_index) or die(mysqli_error($mysqli_link));	
 
 	$query_index="CREATE INDEX ARINVOI ON ARINVOI (INVNO)";
-	$result=mysql_query($query_index, $tryconnection) or die(mysql_error());	
+	$result=mysqli_query($tryconnection, $query_index) or die(mysqli_error($mysqli_link));	
 
 	$query_index="CREATE INDEX CLINIC ON ARINVOI (REFCLIN)";
-	$result=mysql_query($query_index, $tryconnection) or die(mysql_error());	
+	$result=mysqli_query($tryconnection, $query_index) or die(mysqli_error($mysqli_link));	
 
 	$query_index="CREATE INDEX ARGST ON ARGST (CUSTNO, INVNO)";
-	$result=mysql_query($query_index, $tryconnection) or die(mysql_error());	
+	$result=mysqli_query($tryconnection, $query_index) or die(mysqli_error($mysqli_link));	
 
 	$query_index="CREATE INDEX DVMINV ON DVMINV (INVCUST, INVNO)";
-	$result=mysql_query($query_index, $tryconnection) or die(mysql_error());	
+	$result=mysqli_query($tryconnection, $query_index) or die(mysqli_error($mysqli_link));	
 
 	$query_index="CREATE INDEX DVMINVP ON DVMINV (INVVPC)";
-	$result=mysql_query($query_index, $tryconnection) or die(mysql_error());	
+	$result=mysqli_query($tryconnection, $query_index) or die(mysqli_error($mysqli_link));	
 
 	$query_index="CREATE INDEX SCAT ON SALESCAT (INVNO)";
-	$result=mysql_query($query_index, $tryconnection) or die(mysql_error());	
+	$result=mysqli_query($tryconnection, $query_index) or die(mysqli_error($mysqli_link));	
 
 	$query_index="CREATE INDEX INVHOLD ON INVHOLD (INVCUST)";
-	$result=mysql_query($query_index, $tryconnection) or die(mysql_error());	
+	$result=mysqli_query($tryconnection, $query_index) or die(mysqli_error($mysqli_link));	
 
 	$query_index="CREATE INDEX ESTHOLD ON ESTHOLD (INVCUST, INVPET)";
-	$result=mysql_query($query_index, $tryconnection) or die(mysql_error());	
+	$result=mysqli_query($tryconnection, $query_index) or die(mysqli_error($mysqli_link));	
 	}
 	
 	if (!empty($_POST['historical'])) {
 	
  	$query_index="DROP INDEX ARYIN ON ARYINVO";
- 	$result=mysql_query($query_index, $tryconnection) or die(mysql_error());
+ 	$result=mysqli_query($tryconnection, $query_index) or die(mysqli_error($mysqli_link));
 	
 	$query_index="CREATE INDEX ARYIN ON ARYINVO (CUSTNO)";
-	$result=mysql_query($query_index, $tryconnection) or die(mysql_error());
+	$result=mysqli_query($tryconnection, $query_index) or die(mysqli_error($mysqli_link));
 	
  	$query_index="DROP INDEX ARYCA ON ARYCASH";
- 	$result=mysql_query($query_index, $tryconnection) or die(mysql_error());
+ 	$result=mysqli_query($tryconnection, $query_index) or die(mysqli_error($mysqli_link));
 	
 	$query_index="CREATE INDEX ARYCA ON ARYCASH (CUSTNO)";
-	$result=mysql_query($query_index, $tryconnection) or die(mysql_error());
+	$result=mysqli_query($tryconnection, $query_index) or die(mysqli_error($mysqli_link));
 	
  	$query_index="DROP INDEX ARYGST ON ARYGST";
- 	$result=mysql_query($query_index, $tryconnection) or die(mysql_error());
+ 	$result=mysqli_query($tryconnection, $query_index) or die(mysqli_error($mysqli_link));
 	
 	$query_index="CREATE INDEX ARYGST ON ARYGST (CUSTNO)";
-	$result=mysql_query($query_index, $tryconnection) or die(mysql_error());
+	$result=mysqli_query($tryconnection, $query_index) or die(mysqli_error($mysqli_link));
 	
  	$query_index="DROP INDEX ARYDVMI ON ARYDVMI";
- 	$result=mysql_query($query_index, $tryconnection) or die(mysql_error());
+ 	$result=mysqli_query($tryconnection, $query_index) or die(mysqli_error($mysqli_link));
 	
 	$query_index="CREATE INDEX ARYDVMI ON ARYDVMI (INVCUST, INVPET)";
-	$result=mysql_query($query_index, $tryconnection) or die(mysql_error());				
+	$result=mysqli_query($tryconnection, $query_index) or die(mysqli_error($mysqli_link));				
 
  	$query_index="DROP INDEX DVMILAST ON DVMILAST";
- 	$result=mysql_query($query_index, $tryconnection) or die(mysql_error());
+ 	$result=mysqli_query($tryconnection, $query_index) or die(mysqli_error($mysqli_link));
 	
 	$query_index="CREATE INDEX DVMILAST ON DVMILAST (INVCUST, INVPET)";
-	$result=mysql_query($query_index, $tryconnection) or die(mysql_error());
+	$result=mysqli_query($tryconnection, $query_index) or die(mysqli_error($mysqli_link));
 	
  	$query_index="DROP INDEX DVMILASTP ON DVMILAST";
- 	$result=mysql_query($query_index, $tryconnection) or die(mysql_error());
+ 	$result=mysqli_query($tryconnection, $query_index) or die(mysqli_error($mysqli_link));
 	
 	$query_index="CREATE INDEX DVMILASTP ON DVMILAST (INVVPC)";
-	$result=mysql_query($query_index, $tryconnection) or die(mysql_error());				
+	$result=mysqli_query($tryconnection, $query_index) or die(mysqli_error($mysqli_link));				
 
  	$query_index="DROP INDEX PETID ON PROBLEMS";
- 	$result=mysql_query($query_index, $tryconnection) or die(mysql_error());
+ 	$result=mysqli_query($tryconnection, $query_index) or die(mysqli_error($mysqli_link));
 	
 	$query_index="CREATE INDEX PETID ON PROBLEMS (PETID)";
-	$result=mysql_query($query_index, $tryconnection) or die(mysql_error());				
+	$result=mysqli_query($tryconnection, $query_index) or die(mysqli_error($mysqli_link));				
 }
 	
 	if (!empty($_POST['duty'])) {
 	$query_index="DROP INDEX TICKDATE ON TICKLER";
-	$result=mysql_query($query_index, $tryconnection) or die(mysql_error());	
+	$result=mysqli_query($tryconnection, $query_index) or die(mysqli_error($mysqli_link));	
 
 	$query_index="CREATE INDEX TICKDATE ON TICKLER (TDATE, CUSTNO, PETNO)";
-	$result=mysql_query($query_index, $tryconnection) or die(mysql_error());	
+	$result=mysqli_query($tryconnection, $query_index) or die(mysqli_error($mysqli_link));	
 	}
 //	if (!empty($_POST['clinical'])) {}
 //	if (!empty($_POST['mailing'])) {}
 	
 	if (!empty($_POST['referral'])) {
 	$query_index="DROP INDEX REFVET ON REFER";
-	$result=mysql_query($query_index, $tryconnection) or die(mysql_error());	
+	$result=mysqli_query($tryconnection, $query_index) or die(mysqli_error($mysqli_link));	
 
 	$query_index="DROP INDEX REVCLIN ON REFER";
-	$result=mysql_query($query_index, $tryconnection) or die(mysql_error());	
+	$result=mysqli_query($tryconnection, $query_index) or die(mysqli_error($mysqli_link));	
 
 	$query_index="CREATE INDEX REFVET ON REFER (REFVET(15))";
-	$result=mysql_query($query_index, $tryconnection) or die(mysql_error());
+	$result=mysqli_query($tryconnection, $query_index) or die(mysqli_error($mysqli_link));
 	
 	$query_index="CREATE INDEX REVCLIN ON REFER (REFCLIN(20))";
-	$result=mysql_query($query_index, $tryconnection) or die(mysql_error());	
+	$result=mysqli_query($tryconnection, $query_index) or die(mysqli_error($mysqli_link));	
 	}
 //	if (!empty($_POST['stable'])) {}
 header("Location:UTILITIES.php");
